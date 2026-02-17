@@ -1,17 +1,19 @@
-version: "3"
 services:
   # Deploys our custom Astron instance. Astron handles the bulk of Client network interaction
   # and game state management.
   astron:
     image: thetestgame/programmers-quest-astron:develop
+    command: ["/app/build/astrond", "/app/astrond.yml"]
     networks:
       - default
       - programmers-quest
     ports:
       - "6667:6667/tcp" 
     volumes:
-      - pq-astron-db:/server/databases
-      - pq-astron-logs/server/logs
+      - ../../astron/astrond.yml:/app/astrond.yml:ro
+      - ../../quest:/quest:ro
+      - pq-astron-db:/app/databases
+      - pq-astron-logs:/app/logs
     restart: unless-stopped
     deploy:
       replicas: 1

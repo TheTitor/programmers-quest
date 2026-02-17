@@ -49,19 +49,19 @@ class QuestClientNetworkManager(singleton.Singleton, core.QuestObject):
 
         self.cr.sendHello("quest-dev")
 
-    def connection_failure(self):
+    def connection_failure(self, *args):
         """
         """
 
-        self.notify.error("Failed to connect")
-        sys.exit()
+        self.notify.warning("Failed to connect")
+        sys.exit(1)
 
-    def lost_connection(self):
+    def lost_connection(self, *args):
         """
         """
 
-        self.notify.error("Lost connection")
-        sys.exit()
+        self.notify.warning("Lost connection")
+        sys.exit(1)
 
     def ejected(self, error_code, reason):
         """
